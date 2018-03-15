@@ -10,7 +10,7 @@ inputs:
   - name: pcf-info-repo
 
 run:
-  path: pcf-info-repo/ci/tasks/certs/current-certs.rb
+  path: pcf-info-repo/ci/tasks/get_ssl_info/get_cert_status.rb
 
 params:
   params:
