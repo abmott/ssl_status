@@ -9,9 +9,9 @@ wrkdir = Dir.pwd
 datadogprogress = "Pushing Metrics to Datadog"
 
 endpoints = begin YAML.load(File.open("ssl_endpoints.yml"))
-  rescue ArgumentError => e
-  puts "Could not parse Endpoints YAML: #{e.message}"
-end
+#  rescue ArgumentError => e
+#  puts "Could not parse Endpoints YAML: #{e.message}"
+#end
 
 endpoints.each_key { |key|
 endpoint = endpoints[key]['endpoint']
