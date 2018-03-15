@@ -13,7 +13,7 @@ jobs:
   - get: pcf-info-repo
     trigger: false
   - task: current-certs
-    file: pcf-info-repo/ci/tasks/certs/task.yml
+    file: digital_ssl_status/ci/tasks/get_ssl_info/get_cert_status.rb
     params:
       DATADOG_API_KEY: {{datadog_api_key}}
 
