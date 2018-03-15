@@ -1,0 +1,35 @@
+resource_types:
+- name: ubuntu
+  type: docker-image
+  source:
+    repository: docker.prod.pdc.digital.csaa-insurance.aaa.com/ubuntu-ruby-aws
+    tag: latest
+
+jobs:
+- name: digital-certs
+  plan:
+  - get: scheduler {{scheduler-time-window-start}} to {{scheduler-time-window-stop}}
+    trigger: true
+  - get: pcf-info-repo
+    trigger: false
+  - task: current-certs
+    file: pcf-info-repo/ci/tasks/certs/task.yml
+    params:
+      DATADOG_API_KEY: {{datadog_api_key}}
+
+resources:
+- name: pcf-info-repo
+  type: git
+  source:
+    uri: ssh://git@ssh.github.com:443/aaa-ncnu-ie/digital_ssl_status.git
+    branch: master
+    private_key: {{github_private_key}}
+- name: scheduler {{scheduler-time-window-start}} to {{scheduler-time-window-stop}}
+  type: time
+  source:
+    start: {{scheduler-time-window-start}}
+    stop: {{scheduler-time-window-stop}}
+    location: {{scheduler-time-location}}
+- name: 1h
+  type: time
+  source: {interval: 1h}
