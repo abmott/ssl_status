@@ -1,0 +1,19 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: docker.prod.pdc.digital.csaa-insurance.aaa.com/ubuntu-ruby-aws
+    tag: latest
+
+inputs:
+  - name: pcf-info-repo
+
+run:
+  path: pcf-info-repo/ci/tasks/certs/current-certs.rb
+
+params:
+  params:
+    OPSMAN_USERNAME:
+    OPSMAN_PASSWORD:
+    OPSMAN_URI:
