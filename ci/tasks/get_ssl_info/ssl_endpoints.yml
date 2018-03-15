@@ -10,24 +10,12 @@ N01PCF001:
 chefdev:
  endpoint: chefdev.tent.trt.csaa.pri
  port: 443
-#perf-mypolicy:
-# endpoint: perf-mypolicy.tent.trt.csaa.pri
-# port: 443
-#prod-mypolicy:
-# endpoint: prod-mypolicy.ent.rt.csaa.com
-# port: 443
 mypolciy.api.dev:
  endpoint: mypolicy.api.dev.digital.pncie.com
  port: 443
 prod-agencyport:
  endpoint: prod-agencyport.ent.rt.csaa.com
  port: 443
-#perf-mobilecds:
-# endpoint: perf-mobilecds.tent.trt.csaa.pri
-# port: 443
-#qa2-cds:
-# endpoint: qa2-cds.tent.trt.csaa.pri
-# port: 443
 mypolicy.bf:
  endpoint: mypolicy.bf.digital.pncie.com
  port: 443
@@ -49,21 +37,12 @@ mypolicy.api.digital:
 mypolicy.digital:
  endpoint: mypolicy.digital.csaa-insurance.aaa.com
  port: 443
-#dr-cportal:
-# endpoint: dr-cportal.ent.rt.csaa.com
-# port: 443
 mobile.api.dev:
  endpoint: mobile.api.dev.digital.pncie.com
  port: 443
 mobile.api.digital:
  endpoint: mobile.api.digital.csaa-insurance.aaa.com
  port: 443
-#prod-mobileapp2:
-# endpoint: prod-mobileapp2.ent.rt.csaa.com
-# port: 443
-#demo-agencyport:
-# endpoint: demo-agencyport.tent.trt.csaa.pri
-# port: 443
 qa-wcms:
  endpoint: qa-wcms.tent.trt.csaa.pri
  port: 443
@@ -73,9 +52,6 @@ prod-wmcs:
 perf-wmcs:
  endpoint: perf-wcms.tent.trt.csaa.pri
  port: 443
-#dr-wcms:
-# endpoint: dr-wcms.ent.rt.csaa.com
-# port: 443
 pawquote-UATAPPLB:
  endpoint: pasquote-UATAPPLB.tent.trt.csaa.pri
  port: 443
