@@ -30,6 +30,3 @@ resources:
     start: {{scheduler-time-window-start}}
     stop: {{scheduler-time-window-stop}}
     location: {{scheduler-time-location}}
-- name: 1h
-  type: time
-  source: {interval: 1h}
