@@ -4,9 +4,7 @@ resource_types:
   source:
     repository: docker.prod.pdc.digital.csaa-insurance.aaa.com/ubuntu-ruby-aws
     tag: latest
-- name: 24h
-  type: time
-  source: {interval: 24h}
+
 
 jobs:
 - name: digital-certs
@@ -27,9 +25,6 @@ resources:
     uri: ssh://git@ssh.github.com:443/aaa-ncnu-ie/digital_ssl_status.git
     branch: master
     private_key: {{github_private_key}}
-- name: scheduler {{scheduler-time-window-start}} to {{scheduler-time-window-stop}}
+- name: 24h
   type: time
-  source:
-    start: {{scheduler-time-window-start}}
-    stop: {{scheduler-time-window-stop}}
-    location: {{scheduler-time-location}}
+  source: {interval: 24h}
