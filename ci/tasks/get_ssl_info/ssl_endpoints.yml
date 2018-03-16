@@ -7,9 +7,6 @@ wildcard.digital.pncie:
 N01PCF001:
  endpoint: N01PCF001.tent.trt.csaa.pri
  port: 443
-#chefdev:
-# endpoint: chefdev.tent.trt.csaa.pri
-# port: 443
 mypolciy.api.dev:
  endpoint: mypolicy.api.dev.digital.pncie.com
  port: 443
