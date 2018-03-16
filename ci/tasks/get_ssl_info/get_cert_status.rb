@@ -20,7 +20,7 @@ expireDays = ((expire - Time.now).to_i / 86400)
     #curl Metric to DataDog
     #printf("\r#{datadogprogress}")
     #datadogprogress = datadogprogress.concat(".")
-    puts "#{endpoints[key]['endpoint']} Pushing Metrics to Datadog"
+    puts "Pushing Metrics to Datadog for #{endpoints[key]['endpoint']} "
     currenttime = Time.now.to_i
     datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
           '{"series":\
