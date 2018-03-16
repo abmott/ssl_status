@@ -4,13 +4,16 @@ resource_types:
   source:
     repository: docker.prod.pdc.digital.csaa-insurance.aaa.com/ubuntu-ruby-aws
     tag: latest
+- name: 24h
+  type: time
+  source: {interval: 24h}
 
 jobs:
 - name: digital-certs
   plan:
   - get: digital-ssl-status-repo
     trigger: true
-  - get: scheduler {{scheduler-time-window-start}} to {{scheduler-time-window-stop}}
+  - get: 24h
     trigger: true
   - task: current-certs
     file: digital-ssl-status-repo/ci/tasks/get_ssl_info/task.yml
