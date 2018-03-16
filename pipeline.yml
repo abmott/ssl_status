@@ -8,9 +8,9 @@ resource_types:
 jobs:
 - name: digital-certs
   plan:
-  - get: scheduler {{scheduler-time-window-start}} to {{scheduler-time-window-stop}}
-    trigger: true
   - get: digital-ssl-status-repo
+    trigger: true
+  - get: scheduler {{scheduler-time-window-start}} to {{scheduler-time-window-stop}}
     trigger: true
   - task: current-certs
     file: digital-ssl-status-repo/ci/tasks/get_ssl_info/task.yml

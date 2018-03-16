@@ -50,6 +50,6 @@ qa-wcms:
 wildcard.digital.csaa-insurance:
   endpoint: wildcard.digital.csaa-insurance.aaa.com
   port: 443
-wildcard.digital.pnci:
+wildcard.digital.pncie:
   endpoint: wildcard.digital.pncie.com
   port: 443
