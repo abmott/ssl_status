@@ -13,7 +13,7 @@ jobs:
   - get: digital-ssl-status-repo
     trigger: false
   - task: current-certs
-    file: digital-ssl-status-repo/ci/tasks/get_ssl_info/get_cert_status.rb
+    file: digital-ssl-status-repo/ci/tasks/get_ssl_info/task.yml
     params:
       DATADOG_API_KEY: {{datadog_api_key}}
 
