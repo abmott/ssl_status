@@ -5,7 +5,7 @@ require 'yaml'
 
 datadogprogress = "Pushing Metrics to Datadog"
 
-endpoints = YAML.load(File.open("ci/tasks/get_ssl_info/ssl_endpoints.yml"))
+endpoints = YAML.load(File.open("digital-ssl-status-repo/ci/tasks/get_ssl_info/ssl_endpoints.yml"))
 
 endpoints.each_key do |key|
 endpoint = endpoints[key]['endpoint']
