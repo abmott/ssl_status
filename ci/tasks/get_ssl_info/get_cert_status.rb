@@ -3,18 +3,14 @@ require 'date'
 require 'time'
 require 'yaml'
 
-wrkdir = Dir.pwd
 datadogprogress = "Pushing Metrics to Datadog"
 
-endpoints = YAML.load(File.open("#{wrkdir}/ssl_endpoints.yml"))
-#  rescue ArgumentError => e
-#  puts "Could not parse Endpoints YAML: #{e.message}"
-#end
+endpoints = YAML.load(File.open("ci/tasks/get_ssl_info/ssl_endpoints.yml"))
 
-endpoints.each_key { |key|
+endpoints.each_key do |key|
 endpoint = endpoints[key]['endpoint']
 port = endpoints[key]['port']
-#puts "#{endpoint} => #{port}"
+#puts "#{endpoint}"
 get_dates = `echo | openssl s_client -servername #{endpoints[key]['endpoint']} -connect #{endpoints[key]['endpoint']}:#{endpoints[key]['port']} 2>/dev/null | openssl x509 -noout -dates`
 expire = Time.parse(get_dates.split("notAfter=")[1].to_s).utc
 #puts expire
@@ -34,28 +30,4 @@ expireDays = ((expire - Time.now).to_i / 86400)
                "tags":["name:#{endpoints[key]['endpoint']}"]}]}' \
                https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
   #puts datadogoutput
-}
-#products_list.puts ".................."
-#products_list.close
-#
-#puts ""
-#File.open("#{wrkdir}/#{ENV['PCF_ENVIRONMENT']}-current_certs.yml").each do |line|
-#  puts line
-#end
-#
-#s3 = Aws::S3::Resource.new(
-#  :access_key_id => "#{ENV['AWS_ACCESS_KEY']}",
-#  :secret_access_key => "#{ENV['AWS_SECRET_KEY']}",
-#  :region => 'us-east-1'
-#)
-#
-#file = "#{ENV['PCF_ENVIRONMENT']}-current_certs.yml"
-#bucket = 'csaa-pcf-info'
-#
-#name = File.basename(file)
-#
-#obj = s3.bucket(bucket).object(name)
-#
-#obj.upload_file(file)
-#
-#File.delete("#{wrkdir}/#{ENV['PCF_ENVIRONMENT']}-current_certs.yml") if File.exist?("#{wrkdir}/#{ENV['PCF_ENVIRONMENT']}-current_certs.yml")
+end
