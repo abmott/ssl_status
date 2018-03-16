@@ -48,8 +48,8 @@ qa-wcms:
   endpoint: qa-wcms.tent.trt.csaa.pri
   port: 443
 wildcard.digital.csaa-insurance:
-  endpoint: "*.digital.csaa-insurance.aaa.com"
+  endpoint: anything.digital.csaa-insurance.aaa.com
   port: 443
 wildcard.digital.pncie:
-  endpoint: "*.digital.pncie.com"
+  endpoint: anything.digital.pncie.com
   port: 443
