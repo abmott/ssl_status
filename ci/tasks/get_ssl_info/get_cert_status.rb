@@ -51,7 +51,7 @@ s3 = Aws::S3::Resource.new(
   secret_access_key: "#{ENV['AWS_SECRET_KEY']}",
   region: "us-east-1"
 )
-puts file
+puts file_name
 s3.bucket('csaa-non-endpoint-certs').object("#{file_name}").get(response_target: "#{file_name}")
 
 
