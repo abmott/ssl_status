@@ -2,6 +2,7 @@
 require 'date'
 require 'time'
 require 'yaml'
+wrkdir = Dir.pwd
 
 datadogprogress = "Pushing Metrics to Datadog"
 
@@ -32,3 +33,29 @@ expireDays = ((expire - Time.now).to_i / 86400)
                https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
   #puts datadogoutput
 end
+
+secret = "#{ENV['NON_SITE_CERTS1_PASS']}"
+file = "#{ENV['NON_SITE_CERTS1']}"
+extract_cer = `openssl pkcs12 -in #{wrkdir}/non_site_certs/#{file} -out certcheck.cer -nodes -password pass:#{secret}`
+get_expire = `cat certcheck.cer | openssl x509 -noout -enddate`
+#puts get_expire
+expire = Time.parse(get_expire.split("notAfter=")[1].to_s).utc
+#puts expire
+expireDays = ((expire - Time.now).to_i / 86400)
+#puts expireDays
+#curl Metric to DataDog
+#printf("\r#{datadogprogress}")
+#datadogprogress = datadogprogress.concat(".")
+puts "Pushing Metrics to Datadog for #{ENV['NON_SITE_CERTS1']} "
+currenttime = Time.now.to_i
+datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
+      '{"series":\
+          [{"metric":"digital.cert.days_to_expiration}",
+           "points":[[#{currenttime}, #{expireDays}]],
+           "type":"gauge",
+           "host":"#{ENV['NON_SITE_CERTS1']}",
+           "tags":["name:#{ENV['NON_SITE_CERTS1']}"]}]}' \
+           https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
+
+File.delete("#{wrkdir}/non_site_certs/#{file}") if File.exist?("#{wrkdir}/non_site_certs/#{file}")
+#puts datadogoutput
