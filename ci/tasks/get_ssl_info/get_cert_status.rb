@@ -36,7 +36,7 @@ end
 
 secret = "#{ENV['NON_SITE_CERTS1_PASS']}"
 file = "#{ENV['NON_SITE_CERTS1']}"
-extract_cer = `openssl pkcs12 -in digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/#{file} -out digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/certcheck.cer -nodes -password pass:#{secret}`
+extract_cer = `openssl pkcs12 -in ./digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/#{file} -out ./digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/certcheck.cer -nodes -password pass:#{secret}`
 get_expire = `cat certcheck.cer | openssl x509 -noout -enddate`
 #puts get_expire
 expire = Time.parse(get_expire.split("notAfter=")[1].to_s).utc
@@ -57,5 +57,5 @@ datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
            "tags":["name:#{ENV['NON_SITE_CERTS1']}"]}]}' \
            https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
 
-File.delete("digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/certcheck.cer") if File.exist?("digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/certcheck.cer")
+File.delete("./digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/certcheck.cer") if File.exist?("./digital-ssl-status-repo/ci/tasks/get_ssl_info/non_site_certs/certcheck.cer")
 #puts datadogoutput
