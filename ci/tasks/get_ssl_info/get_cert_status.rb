@@ -40,6 +40,7 @@ begin
 rescue Timeout::Error
   puts "URL timed out!"
 end
+end
 
 secret = "#{ENV['NON_SITE_CERTS1_PASS']}"
 file = "#{ENV['NON_SITE_CERTS1']}"
