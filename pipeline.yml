@@ -19,6 +19,9 @@ jobs:
       DATADOG_API_KEY: {{datadog_api_key}}
       NON_SITE_CERTS1_PASS: {{non_site_cert1_pass}}
       NON_SITE_CERTS1: {{non_site_cert1}}
+      AWS_ACCESS_KEY: {{aws_access_key}}
+      AWS_SECRET_KEY: {{aws_secret_key}}
+
 
 resources:
 - name: digital-ssl-status-repo
