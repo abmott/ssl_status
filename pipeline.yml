@@ -7,7 +7,7 @@ resource_types:
 
 
 jobs:
-- name: digital-certs
+- name: digital-cert5
   plan:
   - get: digital-ssl-status-repo
     trigger: true
@@ -17,6 +17,8 @@ jobs:
     file: digital-ssl-status-repo/ci/tasks/get_ssl_info/task.yml
     params:
       DATADOG_API_KEY: {{datadog_api_key}}
+      NON_SITE_CERTS1_PASS: {{non_site_cert1_pass}}
+      NON_SITE_CERTS1: {{non_site_cert1}}
 
 resources:
 - name: digital-ssl-status-repo
