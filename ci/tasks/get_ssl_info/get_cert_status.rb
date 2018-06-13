@@ -3,6 +3,7 @@ require 'date'
 require 'time'
 require 'yaml'
 require 'timeout'
+require 'aws-sdk-s3'
 wrkdir = Dir.pwd
 
 datadogprogress = "Pushing Metrics to Datadog"
