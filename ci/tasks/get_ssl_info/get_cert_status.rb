@@ -2,6 +2,7 @@
 require 'date'
 require 'time'
 require 'yaml'
+require 'timeout'
 wrkdir = Dir.pwd
 
 datadogprogress = "Pushing Metrics to Datadog"
@@ -12,26 +13,32 @@ endpoints.each_key do |key|
 endpoint = endpoints[key]['endpoint']
 port = endpoints[key]['port']
 #puts "#{endpoint}"
-get_dates = `echo | openssl s_client -servername #{endpoints[key]['endpoint']} -connect #{endpoints[key]['endpoint']}:#{endpoints[key]['port']} 2>/dev/null | openssl x509 -noout -dates`
-expire = Time.parse(get_dates.split("notAfter=")[1].to_s).utc
-#puts expire
-expireDays = ((expire - Time.now).to_i / 86400)
-#puts expireDays
-#
-    #curl Metric to DataDog
-    #printf("\r#{datadogprogress}")
-    #datadogprogress = datadogprogress.concat(".")
-    puts "Pushing Metrics to Datadog for #{endpoints[key]['endpoint']} "
-    currenttime = Time.now.to_i
-    datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
-          '{"series":\
-              [{"metric":"digital.cert.days_to_expiration}",
-               "points":[[#{currenttime}, #{expireDays}]],
-               "type":"gauge",
-               "host":"#{endpoints[key]['endpoint']}",
-               "tags":["name:#{endpoints[key]['endpoint']}"]}]}' \
-               https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
-  #puts datadogoutput
+#check if url is active
+begin
+  Timeout::timeout(5){check_url = `echo | openssl s_client -servername #{endpoints[key]['endpoint']} -connect #{endpoints[key]['endpoint']}:#{endpoints[key]['port']} 2>/dev/null | openssl x509 -noout -dates`}
+
+  get_dates = `echo | openssl s_client -servername #{endpoints[key]['endpoint']} -connect #{endpoints[key]['endpoint']}:#{endpoints[key]['port']} 2>/dev/null | openssl x509 -noout -dates`
+  expire = Time.parse(get_dates.split("notAfter=")[1].to_s).utc
+  #puts expire
+  expireDays = ((expire - Time.now).to_i / 86400)
+  #puts expireDays
+  #
+      #curl Metric to DataDog
+      #printf("\r#{datadogprogress}")
+      #datadogprogress = datadogprogress.concat(".")
+      puts "Pushing Metrics to Datadog for #{endpoints[key]['endpoint']} "
+      currenttime = Time.now.to_i
+      datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
+            '{"series":\
+                [{"metric":"digital.cert.days_to_expiration}",
+                  "points":[[#{currenttime}, #{expireDays}]],
+                  "type":"gauge",
+                  "host":"#{endpoints[key]['endpoint']}",
+                  "tags":["name:#{endpoints[key]['endpoint']}"]}]}' \
+                  https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
+                  #puts datadogoutput
+rescue Timeout::Error
+  puts "URL timed out!"
 end
 
 secret = "#{ENV['NON_SITE_CERTS1_PASS']}"
