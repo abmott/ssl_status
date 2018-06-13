@@ -62,6 +62,7 @@ get_expire = `cat certcheck.cer | openssl x509 -noout -enddate`
 expire = Time.parse(get_expire.split("notAfter=")[1].to_s).utc
 #puts expire
 expireDays = ((expire - Time.now).to_i / 86400)
+puts expireDays
 #puts expireDays
 #curl Metric to DataDog
 #printf("\r#{datadogprogress}")
