@@ -44,7 +44,7 @@ end
 end
 
 secret = "#{ENV['NON_SITE_CERTS1_PASS']}"
-file = "#{ENV['NON_SITE_CERTS1']}"
+file_name = "#{ENV['NON_SITE_CERTS1']}"
 
 s3 = Aws::S3::Resource.new(
   access_key_id: "#{ENV['AWS_ACCESS_KEY']}",
@@ -52,11 +52,11 @@ s3 = Aws::S3::Resource.new(
   region: "us-east-1"
 )
 puts file
-s3.bucket('csaa-non-endpoint-certs').object("#{file}").get(response_target: "#{file}")
+s3.bucket('csaa-non-endpoint-certs').object("#{file_name}").get(response_target: "#{file_name}")
 
 
 
-extract_cer = `openssl pkcs12 -in #{file} -out certcheck.cer -nodes -password pass:#{secret}`
+extract_cer = `openssl pkcs12 -in #{file_name} -out certcheck.cer -nodes -password pass:#{secret}`
 get_expire = `cat certcheck.cer | openssl x509 -noout -enddate`
 #puts get_expire
 expire = Time.parse(get_expire.split("notAfter=")[1].to_s).utc
@@ -78,5 +78,5 @@ datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
            https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
 
 File.delete("certcheck.cer") if File.exist?("certcheck.cer")
-File.delete("#{file}") if File.exist?("#{file}")
+File.delete("#{file_name}") if File.exist?("#{file_name}")
 #puts datadogoutput
