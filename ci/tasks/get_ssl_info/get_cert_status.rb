@@ -48,7 +48,7 @@ file_name_str = "#{ENV['NON_SITE_CERTS']}"
 secret_str = "#{ENV['NON_SITE_CERTS_PASS']}"
 file_name_arr = file_name_str.split(", ")
 secret_arr = secret_str.split(", ")
-cert_values = Hash( file_name_arr.zip secret_arr)
+cert_values = Hash[file_name_arr.zip secret_arr]
 
 cert_values.each do |file_name, secret|
 
