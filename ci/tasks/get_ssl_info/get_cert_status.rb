@@ -82,7 +82,7 @@ File.delete("certcheck.cer") if File.exist?("certcheck.cer")
 File.delete("#{file_name}") if File.exist?("#{file_name}")
 #puts datadogoutput
 array_value = "#{ENV['TEST_ARRAY']}"
-array_test = %w[array_value]
+array_test = ["#{array_value}"]
 puts array_test
 array_test.each do |name|
   puts name
