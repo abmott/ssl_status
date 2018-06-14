@@ -83,10 +83,11 @@ cert_values.each do |file_name, secret|
               "host":"#{file_name}",
               "tags":["name:#{file_name}"]}]}' \
               https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
-end
 
-File.delete("certcheck.cer") if File.exist?("certcheck.cer")
-File.delete("#{file_name}") if File.exist?("#{file_name}")
+  File.delete("certcheck.cer") if File.exist?("certcheck.cer")
+  File.delete("#{file_name}") if File.exist?("#{file_name}")
+
+end
 #puts datadogoutput
 cert_file_strg = "#{ENV['ARRAY_TEST']}"
 cert_pass_strg = "#{ENV['ARRAY_TEST2']}"
