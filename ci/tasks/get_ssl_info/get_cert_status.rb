@@ -81,7 +81,7 @@ datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
 File.delete("certcheck.cer") if File.exist?("certcheck.cer")
 File.delete("#{file_name}") if File.exist?("#{file_name}")
 #puts datadogoutput
-array_string = "#{ENV['TEST_ARRAY']}"
+array_string = "#{ENV['ARRAY_TEST']}"
 new_array = array_string.split(" ")
 new_array.each do |name|
   puts "value #{name}"
