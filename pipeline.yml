@@ -17,11 +17,12 @@ jobs:
     file: digital-ssl-status-repo/ci/tasks/get_ssl_info/task.yml
     params:
       DATADOG_API_KEY: {{datadog_api_key}}
-      NON_SITE_CERTS1_PASS: {{non_site_cert1_pass}}
-      NON_SITE_CERTS1: {{non_site_cert1}}
+      NON_SITE_CERTS_PASS: {{non_site_cert_pass}}
+      NON_SITE_CERTS: {{non_site_cert}}
       AWS_ACCESS_KEY: {{aws_access_key}}
       AWS_SECRET_KEY: {{aws_secret_key}}
       ARRAY_TEST: {{array_test}}
+      ARRAY_TEST2: {{array_test2}}
 
 
 resources:

@@ -43,40 +43,47 @@ rescue Timeout::Error
 end
 end
 
-secret = "#{ENV['NON_SITE_CERTS1_PASS']}"
-file_name = "#{ENV['NON_SITE_CERTS1']}"
 
-s3 = Aws::S3::Resource.new(
-  access_key_id: "#{ENV['AWS_ACCESS_KEY']}",
-  secret_access_key: "#{ENV['AWS_SECRET_KEY']}",
-  region: "us-east-1"
-)
-puts file_name
-s3.bucket('csaa-non-endpoint-certs').object("#{file_name}").get(response_target: "#{file_name}")
+file_name_str = "#{ENV['NON_SITE_CERTS']}"
+secret_str = "#{ENV['NON_SITE_CERTS_PASS']}"
+file_name_arr = file_name_str.split(", ")
+secret_arr = secret_str.split(", ")
+cert_values = Hash( file_name_arr.zip secret_arr)
+
+cert_values.each do |file_name, secret|
+
+  s3 = Aws::S3::Resource.new(
+    access_key_id: "#{ENV['AWS_ACCESS_KEY']}",
+    secret_access_key: "#{ENV['AWS_SECRET_KEY']}",
+    region: "us-east-1"
+  )
+  puts file_name
+  s3.bucket('csaa-non-endpoint-certs').object("#{file_name}").get(response_target: "#{file_name}")
 
 
 
-extract_cer = `openssl pkcs12 -in #{file_name} -out certcheck.cer -nodes -password pass:#{secret}`
-get_expire = `cat certcheck.cer | openssl x509 -noout -enddate`
-#puts get_expire
-expire = Time.parse(get_expire.split("notAfter=")[1].to_s).utc
-#puts expire
-expireDays = ((expire - Time.now).to_i / 86400)
-puts expireDays
-#puts expireDays
-#curl Metric to DataDog
-#printf("\r#{datadogprogress}")
-#datadogprogress = datadogprogress.concat(".")
-puts "Pushing Metrics to Datadog for #{ENV['NON_SITE_CERTS1']} "
-currenttime = Time.now.to_i
-datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
-      '{"series":\
-          [{"metric":"digital.cert.days_to_expiration}",
-           "points":[[#{currenttime}, #{expireDays}]],
-           "type":"gauge",
-           "host":"#{ENV['NON_SITE_CERTS1']}",
-           "tags":["name:#{ENV['NON_SITE_CERTS1']}"]}]}' \
-           https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
+  extract_cer = `openssl pkcs12 -in #{file_name} -out certcheck.cer -nodes -password pass:#{secret}`
+  get_expire = `cat certcheck.cer | openssl x509 -noout -enddate`
+  #puts get_expire
+  expire = Time.parse(get_expire.split("notAfter=")[1].to_s).utc
+  #puts expire
+  expireDays = ((expire - Time.now).to_i / 86400)
+  puts expireDays
+  #puts expireDays
+  #curl Metric to DataDog
+  #printf("\r#{datadogprogress}")
+  #datadogprogress = datadogprogress.concat(".")
+  puts "Pushing Metrics to Datadog for #{file_name} "
+  currenttime = Time.now.to_i
+  datadogoutput = `curl -sS -H "Content-type: application/json" -X POST -d \
+        '{"series":\
+            [{"metric":"digital.cert.days_to_expiration}",
+              "points":[[#{currenttime}, #{expireDays}]],
+              "type":"gauge",
+              "host":"#{file_name}",
+              "tags":["name:#{file_name}"]}]}' \
+              https://app.datadoghq.com/api/v1/series?api_key=#{ENV['DATADOG_API_KEY']}`
+end
 
 File.delete("certcheck.cer") if File.exist?("certcheck.cer")
 File.delete("#{file_name}") if File.exist?("#{file_name}")
