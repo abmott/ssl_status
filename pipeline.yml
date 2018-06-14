@@ -7,7 +7,7 @@ resource_types:
 
 
 jobs:
-- name: digital-cert5
+- name: digital-certs
   plan:
   - get: digital-ssl-status-repo
     trigger: true
