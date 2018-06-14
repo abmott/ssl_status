@@ -83,4 +83,6 @@ File.delete("#{file_name}") if File.exist?("#{file_name}")
 #puts datadogoutput
 array_test = %w("#{ENV['TEST_ARRAY']}")
 puts array_test
-array_test.each do { |name| puts name }
+array_test.each do |name|
+  puts name
+end
