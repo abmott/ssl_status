@@ -21,6 +21,7 @@ jobs:
       NON_SITE_CERTS1: {{non_site_cert1}}
       AWS_ACCESS_KEY: {{aws_access_key}}
       AWS_SECRET_KEY: {{aws_secret_key}}
+      ARRAY_TEST: {{array_test}}
 
 
 resources:
