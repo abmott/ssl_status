@@ -2,6 +2,9 @@
 N01PCF001:
   endpoint: N01PCF001.tent.trt.csaa.pri
   port: 443
+OpsManProd:
+  endpoint: opsman.prod.pdc.digital.csaa-insurance.aaa.com
+  port: 443
 mobile.api.dev:
   endpoint: mobile.api.dev.digital.pncie.com
   port: 443
