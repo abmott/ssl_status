@@ -9,7 +9,7 @@ OpsManProd-GDC:
   endpoint: opsman.prod.gdc.digital.csaa-insurance.aaa.com
   port: 443
 OpsManDev:
-  endpoint: opsmandev.digital.pncie.com
+  endpoint: opsmandev.sandbox.gdc.digital.pncie.com
   port: 443
 mobile.api.dev:
   endpoint: mobile.api.dev.digital.pncie.com
