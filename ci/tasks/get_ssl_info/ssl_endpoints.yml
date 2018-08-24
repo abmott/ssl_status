@@ -23,17 +23,11 @@ mypolciy.api.dev:
 mypolicy.api.digital:
   endpoint: mypolicy.api.digital.csaa-insurance.aaa.com
   port: 443
-mypolicy.dev:
-  endpoint: mypolicy.dev.digital.pncie.com
-  port: 443
 mypolicy.digital:
   endpoint: mypolicy.digital.csaa-insurance.aaa.com
   port: 443
 mypolicy.mo:
   endpoint: mypolicy.mo.digital.pncie.com
-  port: 443
-mypolicy.perf:
-  endpoint: mypolicy.perf.digital.pncie.com
   port: 443
 pawquote-UATAPPLB:
   endpoint: pasquote-UATAPPLB.tent.trt.csaa.pri
