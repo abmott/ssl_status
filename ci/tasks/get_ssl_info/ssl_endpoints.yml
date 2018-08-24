@@ -5,6 +5,12 @@ N01PCF001:
 OpsManProd:
   endpoint: opsman.prod.pdc.digital.csaa-insurance.aaa.com
   port: 443
+OpsManProd-GDC:
+  endpoint: opsman.prod.gdc.digital.csaa-insurance.aaa.com
+  port: 443
+OpsManDev:
+  endpoint: opsmandev.digital.pncie.com
+  port: 443
 mobile.api.dev:
   endpoint: mobile.api.dev.digital.pncie.com
   port: 443
