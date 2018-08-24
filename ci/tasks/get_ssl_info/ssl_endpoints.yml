@@ -50,6 +50,12 @@ wildcard.digital.csaa-insurance:
 wildcard.digital.pncie:
   endpoint: wildcard.digital.pncie.com
   port: 443
-wildcard.gdc.prod.digital.csaa-insurance:
-  endpoint: wildcard.gdc.prod.digital.csaa-insurance.aaa.com
+concourse.prod.gdc.digital.csaa-insurance:
+  endpoint: concourse.prod.gdc.digital.csaa-insurance.aaa.com
+  port: 443
+concourse.prod.pdc.digital.csaa-insurance:
+  endpoint: concourse.prod.pdc.digital.csaa-insurance.aaa.com
+  port: 443
+concourse.digital.pncie.com:
+  endpoint: concourse.digital.pncie.com
   port: 443
